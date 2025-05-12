@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorials</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #e0ffff;
+        }
+
+        .main-page-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-page-button:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+            text-align: center;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .video-item h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 315px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="main-page-button">Main Page</a>
+    <div class="container">
+        <h1>Video tutorials for using dsRIP</h1>
+
+        <!-- Grid container for videos -->
+        <div class="video-grid">
+            <div class="video-item">
+                <h2>Introducing dsRIP web platform</h2>
+                <iframe src="https://www.youtube.com/embed/kC-0wrO6Dy8?si=SU4mBH1qEjDhxmk0" title="Introducing dsRIP web platform" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+
+            <div class="video-item">
+                <h2>Selecting effective RNAi target genes</h2>
+                <iframe src="https://www.youtube.com/embed/fr4_8lzZ-u0?si=ng8-GJQz3c7LwJU6" title="Selecting Target Genes" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+
+            <div class="video-item">
+                <h2>Designing effective and safe dsRNA</h2>
+                <iframe src="https://www.youtube.com/embed/qccsjzy9PKE?si=v9XAjfV7uQsLH_dV" title="Designing effective and safe dsRNA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+
+            <div class="video-item">
+                <h2>Adding new species to dsRIP</h2>
+                <iframe src="https://www.youtube.com/embed/DLIR3AJ67-E?si=n3Y7HSF2ovnSsfgx" title="Orthology Inference for adding new species" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

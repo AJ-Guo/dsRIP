@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 5;
+            padding: 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #e0ffff;
+        }
+
+        .main-page-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50; /* Green color */
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-page-button:hover {
+            background-color: #45a049; /* Slightly darker green on hover */
+        }
+
+        .container {
+            background-color: white;
+            padding: 5px;
+            max-width: 950px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .acknowledgment-images {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .acknowledgment-images img {
+            max-width: 150px;
+            height: auto;
+            margin: 0 10px;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+    </style>
+</head>
+<body>
+    <a href="/" class="main-page-button">Main Page</a>
+    <div class="container">
+        <h1>Contact</h1>
+        <p> For bug reports and suggestions, please contact: </p>
+        <p><strong> Developer and Maintainer:</strong> Doga Cedden (doga.cedden@biologie.uni-goettingen.de or dogacedden@gmail.com) </p>
+        <p><strong> Advisor:</strong> Prof. Dr. Gregor Bucher (gregor.bucher@bio.uni-goettingen.de) </p>
+        
+        <br>
+
+        <h1>Acknowledgments</h1>
+        <div class="acknowledgment-images">
+            <img src="/static/DAAD.png" alt="DAAD">
+            <img src="/static/ESA.png" alt="ESA">
+            <img src="/static/GWDG.png" alt="GWDG">
+            <img src="/static/university.png" alt="University">
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RNAi Target Genes</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        footer {
+    background-color: #333; /* Dark background for the footer */
+    color: white; /* White text for contrast */
+    text-align: center; /* Center the text */
+    padding: 10px 0; /* Add some padding for spacing */
+    position: fixed; /* Keep the footer at the bottom of the page */
+    bottom: 0;
+    width: 100%;
+    font-size: 14px; /* Slightly smaller font size */
+    z-index: 1000;
+}
+
+.footer-content {
+    max-width: 1200px; /* Align with your content width */
+    margin: 0 auto; /* Center the footer content */
+    padding: 0 10px;
+}
+
+    .main-page-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50; /* Green color */
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-page-button:hover {
+            background-color: #45a049; /* Slightly darker green on hover */
+        }
+        html, body {
+            height: 100%;
+            overflow: auto;
+            margin: 0;
+            padding: 0;
+            background-color: #e0ffff;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            padding: 20px;
+            margin: auto; /* Centers the container */
+        }
+        .box {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .flashy-button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        .flashy-button:hover {
+            background-color: #45a049;
+        }
+        .table-container {
+            overflow-y: auto;
+            height: 650px; /* Increased the height to 600px */
+            margin-top: 20px;
+            margin-bottom: 20px;
+            width: 100%
+            margin: auto; /* Centers the container */
+        }
+        .table {
+            background-color: #ffffff;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid black;
+        }
+        .selected {
+            background-color: #ffd700;
+            color: #000;
+            border-left: 5px solid #ff8c00;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        p {
+            text-align: center;
+            font-size: 18px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+  <a href="/" class="main-page-button">Main Page</a>
+
+
+    <div class="container">
+        <div class="box">
+            <h1>RNAi Target Genes for <span id="pestName" style="font-style: italic;">{{ pest }}</span></h1>
+            <p>You can select up to 3 targets for dsRNA designing by clicking on the genes or download detailed results.</p>
+            <div class="table-container">
+                <table class="table table-striped table-hover table-bordered">
+                    {{ table|safe }}
+                </table>
+            </div>
+            
+                     <a href="/directory_contents/target_genes" class="flashy-button">Download Detailed Results</a>
+            <button onclick="submitSelection()" class="flashy-button">Design dsRNA</button>
+            <br>
+
+        </div>
+
+    </div>
+
+  <footer>
+    <div class="footer-content">
+        © 2024 University of Göttingen. All rights reserved.      Citations: doi.org/10.1111/imb.12942
+
+    </div>
+</footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            attachRowClickEvent();
+
+            function attachRowClickEvent() {
+                document.querySelectorAll('.table tbody tr').forEach(row => {
+                    row.onclick = function() {
+                        if (document.querySelectorAll('.selected').length < 3 || this.classList.contains('selected')) {
+                            this.classList.toggle('selected');
+                        }
+                    };
+                });
+            }
+
+            function submitSelection() {
+    const selectedRows = document.querySelectorAll('.table .selected');
+    const geneIds = Array.from(selectedRows).map(row => row.cells[0].innerText);
+
+    // Check if any geneIds are selected
+    if (geneIds.length === 0) {
+        return; // Do nothing if no genes are selected
+    }
+
+    window.location.href = `/target_to_design?gene_ids=${encodeURIComponent(geneIds.join(','))}`;
+}
+
+window.submitSelection = submitSelection;
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <meta charset="UTF-8">
+    <title>Directory Contents</title>
+</head>
+<body>
+    <h2>Result Files</h2>
+    <ul>
+        {% for item in contents %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+    <!-- Download Button -->
+    <form action="/download_zip">
+        <button type="submit">Download All as Zip</button>
+    </form>
+</body>
+</html>

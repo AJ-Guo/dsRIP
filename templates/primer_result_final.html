@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primer Sequences Are Ready</title>
+    <style>
+
+             body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            background-color: #e0ffff;
+        }
+
+                      .main-page-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50; /* Green color */
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-page-button:hover {
+            background-color: #45a049; /* Slightly darker green on hover */
+        }
+
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 50px;
+        }
+
+        .box {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .flashy-button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 20px 0;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        .flashy-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="main-page-button">Main Page</a>
+    <div class="container">
+        <div class="box">
+             <h1 style="color: #1a659e;">Primer Sequences</h1>
+            <p>{{ summary }}</p>
+            <a href="/directory_contents/primer" class="flashy-button">Download Results</a>
+        </div>
+    </div>
+
+    <script>
+        function downloadResults() {
+            // Dummy function for demonstration
+            alert('Downloading results...');
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=0.9">
+   <title>dsRIP</title>
+   <style>
+          body {
+           background-color: #e0ffff;
+           margin: 0;
+           padding: 0;
+           font-family: Arial, sans-serif;
+           display: flex;
+           flex-direction: column;
+           justify-content: space-between;
+           align-items: center;
+           margin: 0;
+           overflow: auto;
+               min-height: 100vh; /* Ensure the body takes up the full viewport height */
+
+
+
+
+       }
+
+
+   .pest-control-title {
+   font-size: 26px; /* Adjust the size as needed */
+   font-weight: bold;
+   color: red;
+   text-align: center; /* Center the title above the grid */
+   margin-bottom: 0px; /* Space between title and grid container */
+}
+
+
+   .pest-control-title2 {
+   font-size: 26px; /* Adjust the size as needed */
+   font-weight: bold;
+   color: blue;
+   text-align: center; /* Center the title above the grid */
+   margin-bottom: 0px; /* Space between title and grid container */
+}
+
+
+       .dropdown-menu {
+           position: absolute;
+           top: 20px;
+           right: 20px;
+           z-index: 1000;
+       }
+
+
+       .dropbtn {
+           background-color: #4CAF50;
+           color: white;
+           padding: 8px 16px;
+           font-size: 20px;
+           border: none;
+           cursor: pointer;
+       }
+
+
+       .dropdown {
+           position: relative;
+       }
+
+
+       .dropdown-content {
+           display: none;
+           position: absolute;
+           background-color: #f9f9f9;
+           min-width: 200px;
+           box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+           z-index: 1;
+       }
+
+
+       .dropdown-content a {
+           color: black;
+           padding: 12px 16px;
+           text-decoration: none;
+           display: block;
+           text-align: left;
+       }
+
+
+       .dropdown-content a:hover {background-color: #f1f1f1}
+
+
+       .dropdown:hover .dropdown-content {
+           display: block;
+       }
+
+
+       .dropdown:hover .dropbtn {
+           background-color: #3e8e41;
+       }
+
+
+       .title-container {
+           text-align: center;
+           margin: 0;
+           padding: 5px 0;
+           background-color: #e0ffff;
+           width: 68%;
+       }
+
+
+       .grid-container {
+           display: grid;
+           grid-template-columns: 1fr 1fr ;
+           grid-template-rows: auto auto;
+           gap: 70px;
+           row-gap: 3px;
+           margin-top: 7px; /* Reduced space between title and grid */
+           justify-content: center;
+           align-items: center;
+       }
+
+
+       .grid-container_imprint {
+           width: 80%;
+           display: grid;
+           grid-template-columns: repeat(3, 1fr);
+           gap: 40px;
+           padding: 15px;
+           box-sizing: border-box;
+           justify-content: center;
+           align-items: end;
+       }
+
+
+
+
+
+
+       .tool-boxes {
+           display: flex;
+       }
+
+
+       .box {
+           padding: 7px;
+           margin: 7px;
+           background-color: white;
+           color: white;
+           text-align: center;
+           text-decoration: none;
+           font-size: 25px;
+           border-radius: 5px;
+           width: 390px;
+           transition: background-color 0.3s;
+           overflow: hidden;
+           border: 2px solid black;
+           height: 100px;
+       }
+
+
+       .button-link {
+           background-color: #FFAD00;
+           color: white;
+           padding: 10px 15px;
+           text-align: center;
+           text-decoration: none;
+           font-size: 20px;
+           margin: 4px 2px;
+           cursor: pointer;
+           border: none;
+           border-radius: 5px;
+       }
+
+
+       .form-box {
+           border: 2px solid #000;
+           background-color: #fff;
+           padding: 5px;
+           box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+           font-size: 0.8rem;
+           width: 20%;
+           height: 5%;
+           box-sizing: border-box;
+       }
+
+
+       .box:hover {
+           background-color: #45a049;
+       }
+
+
+       .box {
+           display: flex;
+           flex-direction: column;
+           justify-content: center;
+           align-items: center;
+           text-align: center;
+           background-color: #f0f0f0;
+           padding: 7px;
+           box-sizing: border-box;
+           height: 95%;
+       }
+
+
+       .box img {
+           max-width: 100%;
+           height: auto;
+       }
+
+
+       .row-title {
+           font-size: 24px;
+           font-weight: bold;
+           text-align: center;
+           margin-top: 10px;
+           margin-bottom: 5px;
+           color: #333;
+       }
+.footer {
+   background-color: #333;
+   color: white;
+   text-align: center;
+   width: 100%;
+   font-size: 14px;
+   z-index: 1000;
+   padding: 2px 0; /* Add some padding for spacing */
+   position: fixed; /* Change from fixed to relative */
+   bottom: 0;
+}
+
+
+.footer-content {
+   max-width: 1200px;
+   margin: 0 auto;
+   padding: 0 10px;
+}
+   </style>
+</head>
+<body>
+
+
+<div class="title-container">
+   <img src="{{ url_for('static', filename='title_low.png') }}" alt="dsRIP: Designer for RNA Interference-based Pest Control" style="width:80%;">
+</div>
+
+
+<div class="dropdown" style="position: absolute; top: 10px; left: 10px;">
+   <button class="dropbtn">About</button>
+   <div class="dropdown-content">
+       <a href="/imprint">Imprint</a>
+       <a href="/contact">Contact Authors</a>
+       <a href="/guide">User Guide</a>
+       <a href="/references">References</a>
+   </div>
+</div>
+
+
+<div class="pest-control-title">
+
+
+   Pest Control
+</div>
+
+
+<div class="grid-container">
+
+
+   <a href="/lethal_gene" class="box">
+       <img src="/static/lethal_gene_transfer.png" alt="RNAi Target Gene Finder">
+       <span style="color: black;">RNAi Target Gene Finder</span>
+   </a>
+
+
+   <a href="/orthology_inference" class="box">
+       <img src="/static/orthology_inference.png" alt="Orthology Inference (New Species)">
+       <span style="color: black;">Orthology Inference in New Pests </span>
+   </a>
+
+
+</div>
+
+
+<div class="pest-control-title2">
+   General Tools
+</div>
+
+
+<div class="grid-container">
+
+
+   <a href="/efficiency" class="box">
+       <img src="/static/efficient_dsRNA_designer.png" alt="Efficient dsRNA Designer">
+       <span style="color: black;">dsRNA designer</span>
+   </a>
+
+
+   <a href="/primer" class="box">
+       <img src="/static/primer.png" alt="Primer Designer">
+       <span style="color: black;">Primer Designer</span>
+   </a>
+</div>
+
+
+<div class="grid-container_imprint"></div>
+ <div class="footer">
+   <div class="footer-content">
+       dsRIP v1.0  -  © 2024 University of Göttingen. All rights reserved.  -  Citations: doi.org/10.1111/imb.12942
+   </div>
+</div>
+
+
+</body>
+
+
+</html>
+

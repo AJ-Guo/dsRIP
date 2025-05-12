@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RNAi Target Gene Selection</title>
+    <style>
+              .main-page-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50; /* Green color */
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-page-button:hover {
+            background-color: #45a049; /* Slightly darker green on hover */
+        }
+
+    footer {
+    background-color: #333; /* Dark background for the footer */
+    color: white; /* White text for contrast */
+    text-align: center; /* Center the text */
+    padding: 10px 0; /* Add some padding for spacing */
+    position: fixed; /* Keep the footer at the bottom of the page */
+    bottom: 0;
+    width: 100%;
+    font-size: 14px; /* Slightly smaller font size */
+    z-index: 1000;
+}
+
+.footer-content {
+    max-width: 1200px; /* Align with your content width */
+    margin: 0 auto; /* Center the footer content */
+    padding: 0 10px;
+}
+
+        .main-page-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50; /* Green color */
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-page-button:hover {
+            background-color: #45a049; /* Slightly darker green on hover */
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e0ffff;
+            color: #083d77;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 900px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #1a659e;
+            margin: 0;
+            padding: 10px 0;
+            font-size: 36px;
+        }
+
+        form {
+            background-color: #e8f1f8;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 1000px;
+        }
+
+        label {
+            margin-bottom: 10px;
+            display: block;
+            font-weight: bold;
+        }
+
+        select, input[type="submit"], .form-check-input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #1a659e;
+            margin-top: 5px;
+        }
+
+        .form-select {
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        input[type="submit"] {
+            background-color: #1a659e;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 18px;
+            padding: 10px 0;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #15507b;
+        }
+
+        .form-check-input {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        select[multiple] {
+            height: auto;
+        }
+
+        /* Style for flash messages */
+        .flash-message {
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .flash-warning {
+            background-color: #f44336; /* Red color */
+        }
+
+        .flash-success {
+            background-color: #4CAF50; /* Green color */
+        }
+
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const orderSelect = document.getElementById('orderSelect');
+            const speciesSelect = document.getElementById('speciesSelect');
+
+            // Add a placeholder option for orders
+            const placeholderOption = document.createElement('option');
+            placeholderOption.textContent = 'Select an order';
+            placeholderOption.value = '';
+            placeholderOption.selected = true;
+            placeholderOption.disabled = true;
+            orderSelect.appendChild(placeholderOption);
+
+            // Disable the species dropdown initially
+            speciesSelect.disabled = true;
+
+            fetch('/get_orders_and_species')
+            .then(response => response.json())
+            .then(data => {
+                for (let order in data) {
+                    let orderOption = document.createElement('option');
+                    orderOption.value = order;
+                    orderOption.textContent = order;
+                    orderSelect.appendChild(orderOption);
+                }
+
+                orderSelect.onchange = function() {
+                    speciesSelect.innerHTML = ''; // Clear previous options
+                    let selectedOrder = this.value;
+                    if (selectedOrder) {
+                        data[selectedOrder].forEach(species => {
+                            let speciesOption = document.createElement('option');
+                            speciesOption.value = species;
+                            speciesOption.textContent = species;
+                            speciesSelect.appendChild(speciesOption);
+                        });
+                        // Enable the species dropdown when an order is selected
+                        speciesSelect.disabled = false;
+                    } else {
+                        // Disable the species dropdown if no order is selected
+                        speciesSelect.disabled = true;
+                    }
+                };
+            })
+            .catch(error => console.error('Error loading orders and species:', error));
+        });
+    </script>
+</head>
+<body>
+    <a href="/" class="main-page-button">Main Page</a>
+
+    <div class="header">
+      <h1 style="color: blue; font-weight: bold;">RNAi Target Gene Finder</h1>
+    </div>
+
+    <!-- Flash message section -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message flash-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="post" action="/lethal_execute">
+        <label for="orderSelect">Choose Order/Class:</label>
+        <select name="order" id="orderSelect"></select>
+        <br><br>
+
+        <label for="speciesSelect">Choose a Species:</label>
+        <select name="species" id="speciesSelect" style="font-style: italic;"></select>
+        <br><br>
+      <a href="orthology_inference" style="text-decoration: underline; color: blue;">Click here to work on a pest that is not listed above </a>
+        <br><br>
+        <label for="animal_or_pathogen">Animal or pathogen targets:</label>
+        <select class="form-select mt-2" name="animal_or_pathogen" id="animal_or_pathogen">
+           <option selected value="tribolium_targets">Animal targets (Genome-wide screen in Red flour beetle)</option>
+<option value="sclerotinia_targets">Pathogen targets (Few targets identified in Fungi)</option>
+
+        </select>
+
+
+        <br>
+
+        <p>The parameters below are only applicable if Animal targets are selected</p>
+        <label for="without_paralogs">
+            <input class="form-check-input" type="checkbox" value="on" id="without_paralogs" name="without_paralogs" checked>
+            Exclude targets with paralogs
+        </label>
+        <br>
+
+        <label for="gene_list">Minimum number of successful tranfers to other pests:</label>
+        <select class="form-select mt-2" name="gene_list" id="gene_list">
+            <option value="0">All effective targets</option>
+            <option selected value="1">1 transfer</option>
+            <option value="2">2 transfers</option>
+            <option value="3">3 transfers</option>
+        </select>
+        <br><br>
+
+        <label for="kegg_pathways">(Optional) Filter specific KEGG pathways, hold CTRL for multiple selections:</label>
+        <select class="form-select mt-2" name="kegg_pathways" id="kegg_pathways" multiple size="10">
+            <option value="K_03010">Ribosome</option>
+            <option value="K_00190">Oxidative phosphorylation</option>
+            <option value="K_03050">Proteasome</option>
+            <option value="K_03040">Spliceosome</option>
+            <option value="K_04145">Phagosome</option>
+            <option value="K_04721">Synaptic vesicle cycle</option>
+            <option value="K_03060">Protein export</option>
+            <option value="K_03013">RNA transport</option>
+            <option value="K_00970">Aminoacyl-tRNA biosynthesis</option>
+            <option value="K_03020">RNA polymerase</option>
+            <option value="K_03022">Basal transcription factors</option>
+            <option value="K_03015">mRNA surveillance</option>
+            <option value="K_03008">Ribosome biogenesis</option>
+            <option value="K_04623">Cytosolic DNA sensing</option>
+            <option value="K_04714">Thermogenesis</option>
+        </select>
+        <br>
+
+        <input type="submit" value="Find targets">
+        <br>
+    </form>
+  <footer>
+    <div class="footer-content">
+dsRIP v1.0  -  © 2024 University of Göttingen. All rights reserved.  -  Citations: doi.org/10.1111/imb.12942
+    </div>
+</footer>
+</body>
+</html>
