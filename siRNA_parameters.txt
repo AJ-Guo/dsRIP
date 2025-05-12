@@ -1,0 +1,15 @@
+asymScore_weight=5
+self_fold_energy_weight=3
+mRNA_accessibility_weight=0
+edge_asyym_bonus=10
+anti_GC_lower_bound=0
+anti_GC_upper_bound=65
+anti_GC_bonus=0
+ORF_info_bonus=0
+anti_10th_A_bonus=10
+anti_9_14_GC_bonus=5
+anti_9_14_GC_lower_bound=35
+min_window=250
+max_window=350
+only_ORF=0
+GGGG_CCCC_penalty=0
